@@ -2,9 +2,11 @@ from django.db import models
 
 class Course(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='课程')
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)#一门课一定有一个老师上（多对一的一这一端），一个老师有多门课，c.teacher进行定位该课程的老师
-    #通过c.class_set.all()来访问该课程所有的班级
-
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
+    #一门课一定有一个老师上（多对一的一这一端），一个老师有多门课，c.teacher进行定位该课程的老师(链式表达：course.teacher.name,通过点属性进行链式的表达)
+    # classs = models.ManyToManyField(Class)#多对多可以写在任意一个类(Class、Course)中，但是只能写一次，具体写在哪边，根据自己业务情况
+    # course.class_set.all()
+    # t.course_set()某个老师教授的所有课程
     class Meta:
         verbose_name = "课程管理"
         verbose_name_plural = "课程管理"
@@ -21,6 +23,7 @@ class Class(models.Model):
     # 虽然也可以，此举的目的是班级主体的层次粒度比学生主体要高，
     # 通过班级来建立课程和学生之间的桥梁，不再在课程和学生直接再建立多对多的关系，
     # 有力于理清关注，在增加课程或是增加班级亦或是增加学生时不再需要维护多边的关系，减少不必要的代码复杂度
+    #c.student_set.all()
     class Meta:
         verbose_name = "班级管理"
         verbose_name_plural = "班级管理"
@@ -52,7 +55,7 @@ class Teacher(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='姓名')
     no = models.CharField(max_length = 40,null = True,blank = True,verbose_name='工号')
     passwordd = models.CharField(max_length = 40,null = True,blank = True,verbose_name='密码')
-
+    #t.course_set.all()
     class Meta:
         verbose_name = "教师管理"
         verbose_name_plural = "教师管理"
@@ -107,7 +110,7 @@ class Exam(models.Model):
         return self.name
 
 class StudentExamScore(models.Model):
-    score = models.DecimalField(max_digits=3,decimal_places=1,verbose_name='测验成绩')
+    score = models.DecimalField(max_digits=4,decimal_places=1,verbose_name='测验成绩')
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
     exam = models.ForeignKey(Exam,on_delete=models.CASCADE)
     
