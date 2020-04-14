@@ -160,3 +160,6 @@ SIMPLEUI_CONFIG = {
         }]
     }]
 }
+
+
+SIMPLEUI_HOME_INFO = False

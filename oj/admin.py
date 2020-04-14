@@ -11,6 +11,7 @@ from . import models
 from django.apps import apps
 from django.contrib.admin.sites import AlreadyRegistered
 app_models = apps.get_app_config("oj").get_models()  # 获取app:api下所有的model,得到一个生成器
+from oj.models import *
 # 遍历注册model
 for model in app_models:
     try:
@@ -18,3 +19,20 @@ for model in app_models:
         admin.site.register(model)
     except AlreadyRegistered:
         pass
+
+admin.site.unregister(Student)
+
+from django.forms import ModelForm, PasswordInput
+
+class CustomStudentForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = ['name', 'no', 'passwordd','classs','exams']
+        widgets = {
+            'passwordd': PasswordInput(),
+        }
+
+class StudentAdmin(admin.ModelAdmin):
+    form = CustomStudentForm
+
+admin.site.register(Student, StudentAdmin)
