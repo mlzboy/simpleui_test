@@ -74,8 +74,8 @@ class Question(models.Model):
     option3 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项三')
     option4 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项四')
     right_answer = models.CharField(max_length = 40,null = True,blank = True,verbose_name='正确答案')
-    category = models.ForeignKey('Category', on_delete=None)
-    tags = models.ManyToManyField('Tag')
+    category = models.ForeignKey('Category', on_delete=None,verbose_name='题型')
+    tags = models.ManyToManyField('Tag',verbose_name='知识点')
 
     class Meta:
         verbose_name = "题库管理"
