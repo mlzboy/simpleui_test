@@ -85,26 +85,28 @@ class Question(models.Model):
         return self.name
 
 class Category(models.Model):
-    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='测验名称')
-
+    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='题型分类')
+    class Meta:
+        verbose_name = "题型管理"
+        verbose_name_plural = "题型管理"
 
 class Tag(models.Model):
-    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='测验名称')
+    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='知识点')
    
     class Meta:
-        verbose_name = "测验管理"
-        verbose_name_plural = "测验管理"
+        verbose_name = "知识点管理"
+        verbose_name_plural = "知识点管理"
 
     def __str__(self):
         return self.name
 
 class Exam(models.Model):
-    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='测验名称')
+    name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='考测名称')
     questions = models.ManyToManyField(Question)
-
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
     class Meta:
-        verbose_name = "测验管理"
-        verbose_name_plural = "测验管理"
+        verbose_name = "考试管理"
+        verbose_name_plural = "考试管理"
 
     def __str__(self):
         return self.name
@@ -116,8 +118,8 @@ class StudentExamScore(models.Model):
     
 
     class Meta:
-        verbose_name = "测验管理"
-        verbose_name_plural = "测验管理"
+        verbose_name = "测验分数管理"
+        verbose_name_plural = "测验分数管理"
 
     def __str__(self):
         return self.name
@@ -127,8 +129,8 @@ class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE)
     student_exam_score = models.ForeignKey(StudentExamScore,on_delete=models.CASCADE)
     class Meta:
-        verbose_name = "测验管理"
-        verbose_name_plural = "测验管理"
+        verbose_name = "学生答案管理"
+        verbose_name_plural = "学生答案管理"
 
     def __str__(self):
         return self.name

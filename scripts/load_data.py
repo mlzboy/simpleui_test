@@ -26,6 +26,6 @@ def run():
     s1.save()
     s2 = Student(name="高敬",no="201800005",passwordd="1111111",classs = cls)
     s2.save()
-    
+
 
 
