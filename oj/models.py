@@ -2,7 +2,7 @@ from django.db import models
 
 class Course(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='课程')
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE,verbose_name='授课教师')
     #一门课一定有一个老师上（多对一的一这一端），一个老师有多门课，c.teacher进行定位该课程的老师(链式表达：course.teacher.name,通过点属性进行链式的表达)
     # classs = models.ManyToManyField(Class)#多对多可以写在任意一个类(Class、Course)中，但是只能写一次，具体写在哪边，根据自己业务情况
     # course.class_set.all()
@@ -17,7 +17,7 @@ class Course(models.Model):
 
 class Class(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='班级名')
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course,verbose_name='所上课程')
     #建立多对多关系，一般不需要指定中间表，由ORM系统自动维护，通过c.courses.all()来表示该班的所有课程
     #设计课程和班级之间的多对多关系，不再建立课程与学生之间的多对多关系，
     # 虽然也可以，此举的目的是班级主体的层次粒度比学生主体要高，
@@ -39,7 +39,7 @@ class Student(models.Model):
     passwordd = models.CharField(max_length = 40,null = True,blank = True,verbose_name='密码')
     # 一对多外键设置，'多'的模型类设置外键，注意需要带参数on_delete
     #设置外键的方法中，第一个参数为外键对应的类名，一般加上引号。如果不加引号，那该类必须创建在主表前面
-    classs = models.ForeignKey(Class, on_delete=None)
+    classs = models.ForeignKey(Class, on_delete=None,verbose_name='所在班级')
     exams = models.ManyToManyField('Exam',through='StudentExamScore')
     class Meta:
         verbose_name = "学生管理"
@@ -102,8 +102,8 @@ class Tag(models.Model):
 
 class Exam(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='考测名称')
-    questions = models.ManyToManyField(Question)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    questions = models.ManyToManyField(Question,verbose_name='试题集')
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,verbose_name='考试对应的课程')
     class Meta:
         verbose_name = "考试管理"
         verbose_name_plural = "考试管理"
