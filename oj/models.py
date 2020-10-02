@@ -68,7 +68,7 @@ class Teacher(models.Model):
 
 
 class Question(models.Model):
-    question = models.CharField(max_length = 400,null = True,blank = True,verbose_name='课程')
+    question = models.CharField(max_length = 400,null = True,blank = True,verbose_name='问题')
     option1 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项一')
     option2 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项二')
     option3 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项三')
@@ -82,10 +82,14 @@ class Question(models.Model):
         verbose_name_plural = "题库管理"
 
     def __str__(self):
-        return self.name
+        return self.question
 
 class Category(models.Model):
     name = models.CharField(max_length = 40,null = True,blank = True,verbose_name='题型分类')
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "题型管理"
         verbose_name_plural = "题型管理"
