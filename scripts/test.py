@@ -1,5 +1,7 @@
 from oj.models import *
-#python manage.py runscript test
+
+
+# python manage.py runscript test
 def run():
     print("="*10)
     t = Teacher.objects.get(no="2018000001")
