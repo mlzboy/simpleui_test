@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style type="text/css">a {text-decoration: none}</style>
+    <meta charset="UTF-8">
+    <title>question</title>
+</head>
+<body>
+<form name="form1" method="post" action="/questions/{{question.id}}/submit_action/">
+  {% csrf_token %}
+  <p>{{question.category}}</p>
+  <p>{{question.question}}</p>
+  <p><input name="option" type="checkbox" value="{{question.option1}}">{{question.option1}}
+     <input name="option" type="checkbox" value="{{question.option2}}">{{question.option2}}
+     <input name="option" type="checkbox" value="{{question.option3}}">{{question.option3}}
+     <input name="option" type="checkbox" value="{{question.option4}}">{{question.option4}}
+  </p>
+  <p>
+    <textarea name="data" rows="30" cols="50" >{{data}}</textarea>
+    <input type="submit" name="button" id="button" value="提交">
+    <a href="/questions/all/">
+      <input type="button" name="button" id="button2" value="返回">
+    </a>
+    <textarea name="shuchu" rows="30" cols="60" readonly>{{output}}</textarea>
+    <textarea id="daan" name="" rows="30" cols="60" readonly style="visibility:hidden">{{question.right_answer}}</textarea>
+    <input type="button" name="button" id="da" value="显示答案">
+  </p>
+</form>
+<script>
+    //通过button按钮的id获取点击事件
+    document.getElementById("da").onclick = function () {
+        //使用if判断，判断button按钮的value属性
+        if (this.value === "显示答案") {
+            // 如果显示答案，那么点击后通过div盒子的id修改css样式
+            document.getElementById("daan").style.visibility = "";
+            //this关键字获取的是当前对象  通过this关键字来修改button的value值
+            this.value = "隐藏答案";
+        } else if (this.value === "隐藏答案") {
+            // 如果是隐藏答案，那么点击后通过div盒子的id修改css样式
+            document.getElementById("daan").style.visibility = "hidden";
+            //this关键字获取的是当前对象  通过this关键字来修改button的value值
+            this.value = "显示答案";
+            }
+        }
+</script>
+</body>
+</html>
