@@ -1,0 +1,6 @@
+def f(a,b):
+    return a+b
+print(f(111,4) == 115)
+print(f(-135,5) == -130)
+print(f(0,60) == 60)
+print(f(0,-12) == -12)

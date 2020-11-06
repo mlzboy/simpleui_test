@@ -1,31 +1,52 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
+<!--必须写-->
+<link rel="stylesheet" href="{% static 'codemirror-5.58.2/lib/codemirror.css' %}">
+<script src="{% static 'codemirror-5.58.2/lib/codemirror.js' %}"></script>
+<!--要编辑的语言对应的 js 文件-->
+<script type="text/javascript" src="{% static 'codemirror-5.58.2/mode/python/python.js' %}"></script>
+<!--引入css文件，用以支持主题-->
+<link rel="stylesheet" href="{% static 'codemirror-5.58.2/theme/dracula.css' %}"/>
 <head>
-	<style type="text/css">a {text-decoration: none}</style>
+    <style type="text/css">a {text-decoration: none}</style>
     <meta charset="UTF-8">
     <title>question</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 <form name="form1" method="post" action="/questions/{{question.id}}/submit_action/">
   {% csrf_token %}
   <p>{{question.category}}</p>
   <p>{{question.question}}</p>
-  <p><input name="option" type="checkbox" value="{{question.option1}}">{{question.option1}}
+  <p>
+     <input name="option" type="checkbox" value="{{question.option1}}">{{question.option1}}
      <input name="option" type="checkbox" value="{{question.option2}}">{{question.option2}}
      <input name="option" type="checkbox" value="{{question.option3}}">{{question.option3}}
      <input name="option" type="checkbox" value="{{question.option4}}">{{question.option4}}
   </p>
+  <div class="page-body">
+      <div class="col-md-4" role="main">
+          <textarea name="data" autocomplete="off" id="code">{{data}}</textarea>
+          <input type="submit" name="button" id="button" value="提交">
+          <a href="/questions/all/"><input type="button" name="button" id="button2" value="返回"></a>
+      </div>
+      <div class="col-md-4" role="complementary">
+          <textarea name="shuchu" id="shuchu" autocomplete="off">{{code_output|default:"运行..."}}</textarea>
+      </div>
+      <div class="col-md-4" role="complementary">
+          <textarea id="daan" name="daan" rows="15" cols="50" readonly style="visibility:hidden">{{question.right_answer}}</textarea>
+      </div>
+  </div>
   <p>
-    <textarea name="data" rows="30" cols="50" >{{data}}</textarea>
-    <input type="submit" name="button" id="button" value="提交">
-    <a href="/questions/all/">
-      <input type="button" name="button" id="button2" value="返回">
-    </a>
-    <textarea name="shuchu" rows="30" cols="60" readonly>{{output}}</textarea>
-    <textarea id="daan" name="" rows="30" cols="60" readonly style="visibility:hidden">{{question.right_answer}}</textarea>
-    <input type="button" name="button" id="da" value="显示答案">
+  <input type="button" name="button" id="da" value="显示答案">
   </p>
 </form>
+
+
 <script>
     //通过button按钮的id获取点击事件
     document.getElementById("da").onclick = function () {
@@ -42,6 +63,22 @@
             this.value = "显示答案";
             }
         }
+</script>
+<script>
+    //根据DOM元素的id构造出一个编辑器 设置些属性,充分利用一开始引入的那些文件
+    var editor1 = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,  //显示行号
+        theme: "dracula",  //设置主题
+        indentUnit: 4,  //缩进单位，值为空格数，默认为2
+    });
+    var editor2 = CodeMirror.fromTextArea(document.getElementById("shuchu"), {
+        lineNumbers: true,  //显示行号
+        theme: "dracula",  //设置主题
+        indentUnit: 4,  //缩进单位，值为空格数，默认为2
+        readOnly: "nocursor",  //readOnly: boolean|string 编辑器是否只读。
+        //如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。
+        lineWrapping: true
+    });
 </script>
 </body>
 </html>

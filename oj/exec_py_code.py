@@ -21,6 +21,8 @@ def write_file(TempFile, pyname, code):
     py_path = os.path.join(TempFile, '%s.py' % pyname)
     with open(py_path, 'w', encoding='utf-8') as f:
         f.write(code)
+    with open('a.txt', 'w', encoding='utf-8') as f:
+        f.write(code)
     return py_path
 
 
