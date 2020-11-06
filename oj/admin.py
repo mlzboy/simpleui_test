@@ -34,5 +34,6 @@ class CustomStudentForm(ModelForm):
 
 class StudentAdmin(admin.ModelAdmin):
     form = CustomStudentForm
+    list_display = ("name","no","classs")
 
 admin.site.register(Student, StudentAdmin)
