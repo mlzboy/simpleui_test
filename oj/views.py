@@ -28,7 +28,7 @@ def submit_action(request, question_id):
         sl4_output = ''
         # 提交的代码
         data = request.POST.get('data', '')
-        print(data)
+        print('data',data)
         r = exec_py_code.exec_main(data.replace('\n', ''))
         code_output = r.get('output', None)
         if str(question.category) == '编程题':
@@ -41,30 +41,31 @@ def submit_action(request, question_id):
             sl4 = question.example4
             sl4 = '\nprint({})'.format(sl4)
             data2 = data
-            sl = sl1+sl2+sl3+sl4
-            data2 += sl
-            # 实例答案的返回
-            sl_res = exec_py_code.exec_main(data2)
-            if sl_res["code"] == 'Success':
-                sl_output = sl_res.get('output', None)
-                sl_output = sl_output.split('\n')[:-1]
-                # print(sl_output)
-                if len(sl_output) > 4:
-                    sl_output = sl_output[-4:]
+            if data2:
+                sl = sl1+sl2+sl3+sl4
+                data2 += sl
+                # 实例答案的返回
+                sl_res = exec_py_code.exec_main(data2)
+                if sl_res["code"] == 'Success':
+                    sl_output = sl_res.get('output', None)
+                    sl_output = sl_output.split('\n')[:-1]
                     # print(sl_output)
-                    sl1_output = sl_output[0]
-                    sl2_output = sl_output[1]
-                    sl3_output = sl_output[2]
-                    sl4_output = sl_output[3]
-                elif len(sl_output) == 4:
-                    sl1_output = sl_output[0]
-                    sl2_output = sl_output[1]
-                    sl3_output = sl_output[2]
-                    sl4_output = sl_output[3]
-            else:
-                sl_output = sl_res.get('output', None)
-                sl1_output = sl_output
-                # print(sl_output)
+                    if len(sl_output) > 4:
+                        sl_output = sl_output[-4:]
+                        # print(sl_output)
+                        sl1_output = sl_output[0]
+                        sl2_output = sl_output[1]
+                        sl3_output = sl_output[2]
+                        sl4_output = sl_output[3]
+                    elif len(sl_output) == 4:
+                        sl1_output = sl_output[0]
+                        sl2_output = sl_output[1]
+                        sl3_output = sl_output[2]
+                        sl4_output = sl_output[3]
+                else:
+                    sl_output = sl_res.get('output', None)
+                    sl1_output = sl_output
+                    # print(sl_output)
         else:  # 选择题的情况
             option = request.POST.getlist('option', '')
             print(option)
