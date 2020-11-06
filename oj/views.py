@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from oj import models
 from . import exec_py_code
+import re
 
 def question_all(request):
     questions = models.Question.objects.all()
@@ -11,8 +12,17 @@ def question_all(request):
 def question_page(request, question_id):
     question = models.Question.objects.get(id=question_id)
     if str(question.category) == '编程题':
+        # 用正则找到有几个参数
+        sl1 = question.example1
+        cs = re.match(r"f\((.*?)\)", sl1).group(1).split(',')
+        cs_num = len(cs)
+        for i in range(cs_num):
+            cs[i] = chr(97 + i)
+        cs = ','.join(cs)
+        default1 = 'def f(' + cs + '):\n    # 函数开始\n\n\n\n    # 函数结束'
         return render(request, 'oj/bct_question_page.html',
-                      {'question': question})
+                      {'question': question,
+                       'default1':default1})
     else:
         return render(request, 'oj/xzt_question_page.html',
                       {'question': question})
@@ -66,25 +76,33 @@ def submit_action(request, question_id):
                     sl_output = sl_res.get('output', None)
                     sl1_output = sl_output
                     # print(sl_output)
+            # 用正则找到有几个参数
+            sl1 = question.example1
+            cs = re.match(r"f\((.*?)\)", sl1).group(1).split(',')
+            cs_num = len(cs)
+            for i in range(cs_num):
+                cs[i] = chr(97 + i)
+            cs = ','.join(cs)
+            default1 = 'def f(' + cs + '):\n    # 函数开始\n\n\n\n    # 函数结束'
+            return render(request, 'oj/bct_question_page.html',
+                          {'question': question,
+                           'data': data,
+                           'code_output': code_output,
+                           'sl1_output': sl1_output,
+                           'sl2_output': sl2_output,
+                           'sl3_output': sl3_output,
+                           'sl4_output': sl4_output,
+                           'default1': default1
+                           })
         else:  # 选择题的情况
             option = request.POST.getlist('option', '')
             print(option)
+            return render(request, 'oj/xzt_question_page.html',
+                          {'question': question,
+                           'data': data,
+                           'code_output': code_output})
 
-    if str(question.category) == '编程题':
-        return render(request, 'oj/bct_question_page.html',
-                      {'question': question,
-                       'data': data,
-                       'code_output': code_output,
-                       'sl1_output': sl1_output,
-                       'sl2_output': sl2_output,
-                       'sl3_output': sl3_output,
-                       'sl4_output': sl4_output,
-                       })
-    else:
-        return render(request, 'oj/xzt_question_page.html',
-                      {'question': question,
-                       'data': data,
-                       'code_output': code_output})
+
 
 
 

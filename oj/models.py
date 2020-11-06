@@ -73,7 +73,7 @@ class Question(models.Model):
     option2 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项二')
     option3 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项三')
     option4 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='选项四')
-    right_answer = models.CharField(max_length = 40,null = True,blank = True,verbose_name='正确答案')
+    right_answer = models.TextField(null = True,blank = True,verbose_name='正确答案')
     example1 = models.CharField(max_length = 400,null = True,blank = True,verbose_name='示例1')
     example2 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例2')
     example3 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例3')
