@@ -7,6 +7,13 @@
 </head>
 
 <body>
+{% if request.session.is_login %}
+  <p><a href="#">当前登录：{{ request.session.user_id }}</a></p>
+  <p><a href="/login/logout/">登出</a></p>
+{% else %}
+  <p><a href="/login/index/">登录</a></p>
+  <p><a href="/login/register_page/">注册</a></p>
+{% endif %}
 <table width="1270" align="center" style="table-layout:fixed">
   <tr>
     <td width="70%">题目</td>

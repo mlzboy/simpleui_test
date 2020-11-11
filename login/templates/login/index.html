@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+     <div style="margin: 15% 40%;">
+        {% if message %}
+            <div class="alert alert-warning">{{message}}</div>
+        {% endif %}
+       <h1>欢迎登录！</h1>
+       <form action="/login/login_action/" method="post">
+            {% csrf_token %}
+            <p>
+                <label for="id_username">学号：</label>
+                <input type="text" id="id_username" name="username" placeholder="学号" autofocus required value="{{username}}"/>
+            </p>
+            <p>
+                <label for="id_password">密码：</label>
+                <input type="password" id="id_password" placeholder="密码" name="password" required >
+            </p>
+            <p>
+                <label for="captcha_1">验证码</label>
+                <div>
+                   <input class="weui-input" placeholder="请输入验证码" type="text" id="captcha_1" name="vcode" required>
+                   <input name="hashkey" type="hidden" value="{{hashkey}}">
+                   <img id="code" src="{{ imgage_url }}" width="130" height="53" alt="点击刷新">
+                </div>
+            </p>
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" id="button" value="确定">
+            {% if next == "None" %}
+                <a href="/questions/all/">返回</a>
+            {% elif next %}
+                <a href="{{ next }}">返回</a>
+            {% else %}
+                <a href="/questions/all/">返回</a>
+            {% endif %}
+
+        </form>
+    </div>
+</body>
+</html>
