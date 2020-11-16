@@ -34,14 +34,7 @@
             </p>
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" id="button" value="确定">
-            {% if next == "None" %}
-                <a href="/questions/all/">返回</a>
-            {% elif next %}
-                <a href="{{ next }}">返回</a>
-            {% else %}
-                <a href="/questions/all/">返回</a>
-            {% endif %}
-
+            <a href="/login/register_page/">注册</a>
         </form>
     </div>
 </body>

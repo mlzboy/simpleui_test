@@ -20,6 +20,7 @@
     <td width="30%" align="left" >&nbsp;&nbsp;&nbsp;题型</td>
   </tr>
   {%for question in questions%}
+  {% if question.display %}
     <tr>
       <td width="70%" style="word-break : break-all; ">
         <p>
@@ -33,6 +34,7 @@
         {{question.category}}
       </td>
     </tr>
+  {% endif %}
   {%endfor%}
 </table>
 </body>
