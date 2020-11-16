@@ -141,6 +141,15 @@
         //如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。
         lineWrapping: true
     });
+    var editor3 = CodeMirror.fromTextArea(document.getElementById("daan"), {
+        lineNumbers: true,  //显示行号
+        theme: "dracula",  //设置主题
+        indentUnit: 4,  //缩进单位，值为空格数，默认为2
+        readOnly: "nocursor",  //readOnly: boolean|string 编辑器是否只读。
+            //如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。
+        lineWrapping: true
+            //在长行时文字是换行(wrap)还是滚动(scroll)，默认为滚动(scroll)。
+    });
 </script>
 </body>
 </html>

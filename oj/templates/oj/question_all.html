@@ -16,23 +16,21 @@
 {% endif %}
 <table width="1270" align="center" style="table-layout:fixed">
   <tr>
-    <td width="70%">题目</td>
-    <td width="30%" align="left" >&nbsp;&nbsp;&nbsp;题型</td>
+    <td width="60%">题目</td>
+    <td width="40%" colspan="2" align="left" >&nbsp;&nbsp;&nbsp;题型</td>
   </tr>
   {%for question in questions%}
   {% if question.display %}
     <tr>
-      <td width="70%" style="word-break : break-all; ">
+      <td width="60%" style="word-break : break-all; ">
         <p>
           <a href="/questions/{{question.id}}">
-            {{question.question}}
+            {{question.id}}.{{question.question}}
           </a>
         </p>
       </td>
-      <td width="30%" align="left" style="word-break : break-all; ">
-        &nbsp;&nbsp;&nbsp;
-        {{question.category}}
-      </td>
+      <td width="5%" align="left" style="word-break : break-all; ">{{question.category}}</td>
+      <td width="5%" align="left" style="word-break : break-all; ">{{question.author}}</td>
     </tr>
   {% endif %}
   {%endfor%}

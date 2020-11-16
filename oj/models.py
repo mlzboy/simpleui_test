@@ -69,6 +69,7 @@ class Teacher(models.Model):
 
 
 class Question(models.Model):
+    id = models.AutoField(primary_key=True)
     question = models.CharField(max_length=400, null=True, blank=True, verbose_name='问题')
     option1 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项一')
     option2 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项二')
@@ -82,6 +83,7 @@ class Question(models.Model):
     category = models.ForeignKey('Category', on_delete=None, verbose_name='题型')
     tags = models.ManyToManyField('Tag', verbose_name='知识点')
     display = models.BooleanField(default=False)
+    author = models.CharField(max_length=400, verbose_name='作者')
 
     class Meta:
         verbose_name = "题库管理"
