@@ -37,16 +37,19 @@
           <textarea name="data" autocomplete="off" id="code">{{data|default:default1}}</textarea>
           <input type="submit" name="button" id="button" value="提交代码">
           <a href="/questions/all/"><input type="button" name="button" id="button2" value="返回"></a>
+          <input type="button" name="button" id="zt" value="粘贴答案">
       </div>
       <div class="col-md-4" role="complementary">
           <textarea name="shuchu" id="shuchu" autocomplete="off">{{code_output|default:"运行结果"}}</textarea>
+          <input type="button" name="button" id="da" value="显示答案">
       </div>
       <div class="col-md-4" role="complementary">
           <textarea id="daan" name="daan" rows="15" cols="50" readonly style="visibility:hidden">{{question.right_answer}}</textarea>
+          <input type="button" name="button" id="fz" value="复制答案">
       </div>
   </div>
-  <input type="button" name="button" id="da" value="显示答案">
 </form>
+<a href="/admin/#/admin/oj/question/">跳转</a>
 <div>
 <table width="60%" border="0" cellspacing="0" cellpadding="0">
       <tr>
