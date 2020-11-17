@@ -14,14 +14,7 @@ def question_page(request, question_id):
     question = models.Question.objects.get(id=question_id)
     tags = question.tags.all()
     if str(question.category) == '编程题':
-        # 用正则找到有几个参数
-        sl1 = question.example1
-        cs = re.match(r"f\((.*?)\)", sl1).group(1).split(',')
-        cs_num = len(cs)
-        for i in range(cs_num):
-            cs[i] = chr(97 + i)
-        cs = ','.join(cs)
-        default1 = 'def f(' + cs + '):\n    pass'
+        default1 = question.functionname
         return render(request, 'oj/bct_question_page.html',
                       {'question': question,
                        'default1': default1,
@@ -82,14 +75,7 @@ def submit_action(request, question_id):
                     sl_output = sl_res.get('output', None)
                     sl1_output = sl_output
                     # print(sl_output)
-            # 用正则找到有几个参数
-            sl1 = question.example1
-            cs = re.match(r"f\((.*?)\)", sl1).group(1).split(',')
-            cs_num = len(cs)
-            for i in range(cs_num):
-                cs[i] = chr(97 + i)
-            cs = ','.join(cs)
-            default1 = 'def f(' + cs + '):\n    pass'
+            default1 = question.functionname
             return render(request, 'oj/bct_question_page.html',
                           {'question': question,
                            'data': data,
