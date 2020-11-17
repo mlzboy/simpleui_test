@@ -24,14 +24,14 @@
                 <label for="id_password">密码：</label>
                 <input type="password" id="id_password" placeholder="密码" name="password" required >
             </p>
-            <p>
-                <label for="captcha_1">验证码</label>
-                <div>
-                   <input class="weui-input" placeholder="请输入验证码" type="text" id="captcha_1" name="vcode" required>
-                   <input name="hashkey" type="hidden" value="{{hashkey}}">
-                   <img id="code" src="{{ imgage_url }}" width="130" height="53" alt="点击刷新">
-                </div>
-            </p>
+<!--            <p>-->
+<!--                <label for="captcha_1">验证码</label>-->
+<!--                <div>-->
+<!--                   <input class="weui-input" placeholder="请输入验证码" type="text" id="captcha_1" name="vcode" required>-->
+<!--                   <input name="hashkey" type="hidden" value="{{hashkey}}">-->
+<!--                   <img id="code" src="{{ imgage_url }}" width="130" height="53" alt="点击刷新">-->
+<!--                </div>-->
+<!--            </p>-->
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" id="button" value="确定">
             <a href="/login/register_page/">注册</a>
