@@ -1,4 +1,7 @@
 from django.db import models
+from simditor.fields import RichTextField
+
+
 
 
 class Course(models.Model):
@@ -70,21 +73,26 @@ class Teacher(models.Model):
 
 class Question(models.Model):
     id = models.AutoField(primary_key=True)
-    question = models.TextField(null=True, blank=True, verbose_name='问题')
-    option1 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项一')
-    option2 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项二')
-    option3 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项三')
-    option4 = models.CharField(max_length=400, null=True, blank=True, verbose_name='选项四')
+    # question = models.TextField(null=True, blank=True, verbose_name='问题')
+    question = RichTextField(verbose_name='问题')
+    difficulty = models.CharField(max_length=40, choices=
+                                [('简单', '简单'),
+                                 ('中等', '中等'),
+                                 ('困难', '困难')], default= 'simple', verbose_name='难度')
+    option1 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项一')
+    option2 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项二')
+    option3 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项三')
+    option4 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项四')
     right_answer = models.TextField(null=True, blank=True, verbose_name='正确答案')
-    functionname = models.TextField(max_length=400, null=True, blank=True, verbose_name='初始代码')
-    example1 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例1')
-    example2 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例2')
-    example3 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例3')
-    example4 = models.CharField(max_length=400, null=True, blank=True, verbose_name='示例4')
-    category = models.ForeignKey('Category', on_delete=None, verbose_name='题型')
+    functionname = models.TextField(max_length=1000, null=True, blank=True, verbose_name='初始代码')
+    example1 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='示例1')
+    example2 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='示例2')
+    example3 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='示例3')
+    example4 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='示例4')
+    category = models.ForeignKey('Category', on_delete=None, null=True, verbose_name='题型')
     tags = models.ManyToManyField('Tag', verbose_name='知识点')
     display = models.BooleanField(default=True, verbose_name='是否展示此题')
-    author = models.CharField(max_length=400, verbose_name='作者')
+    author = models.CharField(max_length=1000, verbose_name='作者')
 
     class Meta:
         verbose_name = "题库管理"

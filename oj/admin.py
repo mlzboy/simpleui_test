@@ -22,7 +22,7 @@ for model in app_models:
 
 admin.site.unregister(Student)
 admin.site.unregister(Course)
-
+admin.site.unregister(Question)
 from django.forms import ModelForm, PasswordInput
 
 class CustomStudentForm(ModelForm):
@@ -41,6 +41,9 @@ class CourseAdmin(admin.ModelAdmin):
     form = CustomStudentForm
     list_display = ("name","teacher")
 
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ("question", "id", "author")
 
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Course, CourseAdmin)
+admin.site.register(Question, QuestionAdmin)

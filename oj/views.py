@@ -40,37 +40,51 @@ def submit_action(request, question_id):
         r = exec_py_code.exec_main(data.replace('\n', ''))
         code_output = r.get('output', None)
         if str(question.category) == '编程题':
+            data2 = data
             sl1 = question.example1
             sl1 = '\nprint({})'.format(sl1)
-            sl2 = question.example2
-            sl2 = '\nprint({})'.format(sl2)
-            sl3 = question.example3
-            sl3 = '\nprint({})'.format(sl3)
-            sl4 = question.example4
-            sl4 = '\nprint({})'.format(sl4)
-            data2 = data
             if data2:
-                data2 = re.sub(r'print\([\d\D]*?\)+', '', data2)
-                sl = sl1+sl2+sl3+sl4
-                data2 += sl
-                # 实例答案的返回
-                sl_res = exec_py_code.exec_main(data2)
+                data3 = data2 + sl1
+                sl_res = exec_py_code.exec_main(data3)
                 if sl_res["code"] == 'Success':
                     sl_output = sl_res.get('output', None)
-                    sl_output = sl_output.split('\n')[:-1]
+                    sl1_output = sl_output.split('\n')[-2].strip()
+                else:
+                    sl_output = sl_res.get('output', None)
+                    sl1_output = sl_output
                     # print(sl_output)
-                    if len(sl_output) > 4:
-                        sl_output = sl_output[-4:]
-                        # print(sl_output)
-                        sl1_output = sl_output[0].strip()
-                        sl2_output = sl_output[1].strip()
-                        sl3_output = sl_output[2].strip()
-                        sl4_output = sl_output[3].strip()
-                    elif len(sl_output) == 4:
-                        sl1_output = sl_output[0].strip()
-                        sl2_output = sl_output[1].strip()
-                        sl3_output = sl_output[2].strip()
-                        sl4_output = sl_output[3].strip()
+            sl2 = question.example2
+            sl2 = '\nprint({})'.format(sl2)
+            if data2:
+                data3 = data2 + sl2
+                sl_res = exec_py_code.exec_main(data3)
+                if sl_res["code"] == 'Success':
+                    sl_output = sl_res.get('output', None)
+                    sl2_output = sl_output.split('\n')[-2].strip()
+                else:
+                    sl_output = sl_res.get('output', None)
+                    sl1_output = sl_output
+                    # print(sl_output)
+            sl3 = question.example3
+            sl3 = '\nprint({})'.format(sl3)
+            if data2:
+                data3 = data2 + sl3
+                sl_res = exec_py_code.exec_main(data3)
+                if sl_res["code"] == 'Success':
+                    sl_output = sl_res.get('output', None)
+                    sl3_output = sl_output.split('\n')[-2].strip()
+                else:
+                    sl_output = sl_res.get('output', None)
+                    sl1_output = sl_output
+                    # print(sl_output)
+            sl4 = question.example4
+            sl4 = '\nprint({})'.format(sl4)
+            if data2:
+                data3 = data2 + sl4
+                sl_res = exec_py_code.exec_main(data3)
+                if sl_res["code"] == 'Success':
+                    sl_output = sl_res.get('output', None)
+                    sl4_output = sl_output.split('\n')[-2].strip()
                 else:
                     sl_output = sl_res.get('output', None)
                     sl1_output = sl_output

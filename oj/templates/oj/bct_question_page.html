@@ -26,7 +26,9 @@
 <form name="form1" method="post" action="/questions/{{question.id}}/submit_action/">
   {% csrf_token %}
   <p>{{question.category}}</p>
-  <p>{{question.question}}</p>
+  <p>{% autoescape off %}
+    {{question.question}}
+    {% endautoescape %}</p>
   <p>本题知识点：{% for tag in tags%}
       {{tag}}
       {% endfor%}</p>
@@ -43,7 +45,6 @@
       </div>
       <div class="col-md-4" role="complementary">
           <textarea id="daan" name="daan" rows="15" cols="50" readonly style="visibility:hidden">{{question.right_answer}}</textarea>
-          <input type="button" name="button" id="fz" value="复制答案">
       </div>
   </div>
 </form>

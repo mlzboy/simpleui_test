@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'simditor',
     'django_extensions',
     'oj',
     'simpleui',
@@ -42,8 +43,35 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+
     # 'captcha'
 ]
+
+
+SIMDITOR_TOOLBAR = [
+    'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
+    'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
+    'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
+    'markdown', 'emoji'
+]
+
+SIMDITOR_CONFIGS = {
+    'toolbar': SIMDITOR_TOOLBAR,
+    'upload': {
+        'url': '/simditor/upload/',
+        'fileKey': 'upload'
+    },
+    'emoji': {
+        'imagePath': '/static/simditor/images/emoji/'
+    }
+}
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+SIMDITOR_UPLOAD_PATH = 'uploads/'
+SIMDITOR_IMAGE_BACKEND = 'pillow'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

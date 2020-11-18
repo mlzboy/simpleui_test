@@ -16,11 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from login.views import index
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('simditor/', include('simditor.urls')),
     path('questions/', include('oj.urls')),
     path('login/', include('login.urls')),
     # path('captcha/', include('captcha.urls')),
-    path('', index)
+    path('', index),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

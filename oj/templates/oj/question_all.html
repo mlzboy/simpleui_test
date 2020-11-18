@@ -17,7 +17,7 @@
 <table width="1270" align="center" style="table-layout:fixed">
   <tr>
     <td width="60%">题目</td>
-    <td width="40%" colspan="2" align="left" >&nbsp;&nbsp;&nbsp;题型</td>
+    <td width="40%" colspan="3" align="left" >&nbsp;&nbsp;&nbsp;题型</td>
   </tr>
   {%for question in questions%}
   {% if question.display %}
@@ -29,7 +29,8 @@
           </a>
         </p>
       </td>
-      <td width="5%" align="left" style="word-break : break-all; ">{{question.category}}</td>
+      <td width="2%" align="left" style="word-break : break-all; ">{{question.category}}</td>
+      <td width="3%" align="left" style="word-break : break-all; ">{{question.difficulty}}</td>
       <td width="5%" align="left" style="word-break : break-all; ">{{question.author}}</td>
     </tr>
   {% endif %}
