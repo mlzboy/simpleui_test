@@ -108,10 +108,19 @@ WSGI_APPLICATION = 'simpleui_test.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+       'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'simpleui_test',  # 数据库名
+        'USER': 'root',  # 数据库账户名
+        'PASSWORD': 'zhoubt',  # 即user_password，数据库密码。
+        # 为安全起见，应从系统环境变量中获取。os.environ['MY_DB_PASS']
+        'HOST': '127.0.0.1',  # 数据库服务器IP
+        'PORT': '3333',  # 端口
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 
