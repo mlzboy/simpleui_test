@@ -114,7 +114,8 @@ DATABASES = {
         'USER': 'root',  # 数据库账户名
         'PASSWORD': 'zhoubt',  # 即user_password，数据库密码。
         # 为安全起见，应从系统环境变量中获取。os.environ['MY_DB_PASS']
-        'HOST': '127.0.0.1',  # 数据库服务器IP
+        # 'HOST': '127.0.0.1',  # 数据库服务器IP
+        'HOST': '106.75.10.125',  # 数据库服务器IP
         'PORT': '3333',  # 端口
     }
     # 'default': {
