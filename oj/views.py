@@ -63,7 +63,7 @@ def submit_action(request, question_id):
                     sl2_output = sl_output.split('\n')[-2].strip()
                 else:
                     sl_output = sl_res.get('output', None)
-                    sl1_output = sl_output
+                    sl2_output = sl_output
                     # print(sl_output)
             sl3 = question.example3
             sl3 = '\nprint({})'.format(sl3)
@@ -75,7 +75,7 @@ def submit_action(request, question_id):
                     sl3_output = sl_output.split('\n')[-2].strip()
                 else:
                     sl_output = sl_res.get('output', None)
-                    sl1_output = sl_output
+                    sl3_output = sl_output
                     # print(sl_output)
             sl4 = question.example4
             sl4 = '\nprint({})'.format(sl4)
@@ -87,7 +87,7 @@ def submit_action(request, question_id):
                     sl4_output = sl_output.split('\n')[-2].strip()
                 else:
                     sl_output = sl_res.get('output', None)
-                    sl1_output = sl_output
+                    sl4_output = sl_output
                     # print(sl_output)
             default1 = question.functionname
             return render(request, 'oj/bct_question_page.html',
