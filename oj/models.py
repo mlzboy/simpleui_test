@@ -1,5 +1,6 @@
 from django.db import models
 from simditor.fields import RichTextField
+from django.utils.html import format_html
 
 
 
@@ -94,6 +95,10 @@ class Question(models.Model):
     tags = models.ManyToManyField('Tag', verbose_name='知识点')
     display = models.BooleanField(default=True, verbose_name='是否展示此题')
     author = models.CharField(max_length=1000, verbose_name='作者')
+
+    def show_front_link(self):
+        return format_html("<a href='/questions/{id}/' target='_blank'>打开</a>", id=self.id)
+    show_front_link.short_description ="前台详情页链接"
 
     class Meta:
         verbose_name = "题库管理"
