@@ -74,8 +74,8 @@ class Teacher(models.Model):
 
 class Question(models.Model):
     id = models.AutoField(primary_key=True)
-    # question = models.TextField(null=True, blank=True, verbose_name='问题')
-    question = RichTextField(verbose_name='问题')
+    title = models.TextField(null=True, blank=True, verbose_name='标题')
+    question = RichTextField(verbose_name='内容')
     source = models.CharField(max_length=1000, null=True, blank=True, verbose_name='题目来源')
     difficulty = models.CharField(max_length=40, choices=
                                 [('简单', '简单'),
