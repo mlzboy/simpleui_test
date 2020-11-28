@@ -88,7 +88,7 @@ ROOT_URLCONF = 'simpleui_test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['vue'],
+        'DIRS': ['vue/dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
