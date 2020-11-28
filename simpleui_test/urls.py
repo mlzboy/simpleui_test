@@ -18,15 +18,18 @@ from django.urls import path, include
 from login.views import index
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+from django.shortcuts import render,render_to_response
+from django.views.generic.base import TemplateView
+from django.conf.urls import url
 
 urlpatterns = [
-    path('adminzzz/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('simditor/', include('simditor.urls')),
     path('questions/', include('oj.urls')),
     path('login/', include('login.urls')),
     # path('captcha/', include('captcha.urls')),
     path('', index),
-
 ]
-
+    
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
