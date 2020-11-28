@@ -88,7 +88,7 @@ ROOT_URLCONF = 'simpleui_test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['vue/dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -168,7 +168,7 @@ print(STATIC_ROOT)
 print(BASE_DIR)
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'vue/dist/static'),
 )
 
 # 自定义simpleui 菜单
