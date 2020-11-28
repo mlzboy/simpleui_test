@@ -25,14 +25,11 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'', TemplateView.as_view(template_name="index.html")),
-    path('api/test', view=lambda request: HttpResponse('api测试')),
     path('simditor/', include('simditor.urls')),
     path('questions/', include('oj.urls')),
     path('login/', include('login.urls')),
     # path('captcha/', include('captcha.urls')),
     path('', index),
 ]
-
     
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

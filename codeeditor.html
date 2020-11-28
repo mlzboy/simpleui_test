@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+  body{margin:0;padding:0;}
+	.top{
+    height:50px;
+    background-color: green;
+    /* z-index: 10; */
+  }
+  .main{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:600px;
+    min-height: 100vh;
+    /* background-color: gray; */
+  }
+  .left{
+    width:200px;
+    background-color:yellow;
+  }
+  .middle{
+    width:100%;
+    background-color:green;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    }
+  .right1{
+    width:200px;
+    background-color:yellow;
+  } 
+  .right2{
+    width:200px;
+    background-color:red;
+  } 
+  .editor{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    /* min-height: 100vh; */
+    /* height:100vh-400px; */
+    flex-grow:1
+
+  }
+  .z{
+    background-color:orange;
+    width:400px;
+  }
+  .y{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
+    background-color:pink;
+    flex-grow:1
+  }
+  .s{
+    background-color:blue;
+  height:500px;
+  }
+  .x{background-color:gray;
+  flex-grow:1;
+  }
+</style>
+ </head>
+ <body>
+  <div class="main">
+    <div class="left">111111111111111</div>
+    <div class="middle">
+      <div class="top">
+      111
+      </div>
+      <div class="editor">
+        <div class="z">3333333333</div>
+        <div class="y">
+          <div class="s">1111</div>
+          <div class="x">222</div>
+        </div>
+      </div>
+    </div>
+    <div class="right1">2222222222222</div>
+    <div class="right2">2222222222222</div>
+  </div>
+</body>
+</html>

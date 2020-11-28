@@ -24,6 +24,7 @@ admin.site.unregister(Student)
 admin.site.unregister(Course)
 admin.site.unregister(Question)
 from django.forms import ModelForm, PasswordInput
+from django.utils.html import format_html
 
 class CustomStudentForm(ModelForm):
     class Meta:
@@ -42,7 +43,13 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ("name","teacher")
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ("question", "id", "author")
+    list_display = ("question", "id", 'difficulty',"author","display","show_front_link")
+    list_filter = ['difficulty', 'author']
+    search_fields = ['question']
+
+    # show_id.allow_tags = True
+    # author.allow_tags = True
+    # id.show_description = ""
 
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Course, CourseAdmin)
