@@ -6,6 +6,15 @@ import re
 
 def question_all(request):
     questions = models.Question.objects.all()
+    difficulty = request.GET.get('d', None)
+    if difficulty:
+        # print(difficulty)
+        dq = []
+        for question in questions:
+            if question.difficulty == difficulty:
+                dq.append(question)
+        return render(request, 'oj/question_all.html',
+                      {'questions': dq})
     return render(request, 'oj/question_all.html',
                   {'questions': questions})
 
@@ -42,53 +51,57 @@ def submit_action(request, question_id):
         if str(question.category) == '编程题':
             data2 = data
             sl1 = question.example1
-            sl1 = '\nprint({})'.format(sl1)
-            if data2:
-                data3 = data2 + sl1
-                sl_res = exec_py_code.exec_main(data3)
-                if sl_res["code"] == 'Success':
-                    sl_output = sl_res.get('output', None)
-                    sl1_output = sl_output.split('\n')[-2].strip()
-                else:
-                    sl_output = sl_res.get('output', None)
-                    sl1_output = sl_output
-                    # print(sl_output)
+            if sl1:
+                sl1 = '\nprint({})'.format(sl1)
+                if data2:
+                    data3 = data2 + sl1
+                    sl_res = exec_py_code.exec_main(data3)
+                    if sl_res["code"] == 'Success':
+                        sl_output = sl_res.get('output', None)
+                        sl1_output = sl_output.split('\n')[-2].strip()
+                    else:
+                        sl_output = sl_res.get('output', None)
+                        sl1_output = sl_output
+                        # print(sl_output)
             sl2 = question.example2
-            sl2 = '\nprint({})'.format(sl2)
-            if data2:
-                data3 = data2 + sl2
-                sl_res = exec_py_code.exec_main(data3)
-                if sl_res["code"] == 'Success':
-                    sl_output = sl_res.get('output', None)
-                    sl2_output = sl_output.split('\n')[-2].strip()
-                else:
-                    sl_output = sl_res.get('output', None)
-                    sl2_output = sl_output
-                    # print(sl_output)
+            if sl2:
+                sl2 = '\nprint({})'.format(sl2)
+                if data2:
+                    data3 = data2 + sl2
+                    sl_res = exec_py_code.exec_main(data3)
+                    if sl_res["code"] == 'Success':
+                        sl_output = sl_res.get('output', None)
+                        sl2_output = sl_output.split('\n')[-2].strip()
+                    else:
+                        sl_output = sl_res.get('output', None)
+                        sl2_output = sl_output
+                        # print(sl_output)
             sl3 = question.example3
-            sl3 = '\nprint({})'.format(sl3)
-            if data2:
-                data3 = data2 + sl3
-                sl_res = exec_py_code.exec_main(data3)
-                if sl_res["code"] == 'Success':
-                    sl_output = sl_res.get('output', None)
-                    sl3_output = sl_output.split('\n')[-2].strip()
-                else:
-                    sl_output = sl_res.get('output', None)
-                    sl3_output = sl_output
-                    # print(sl_output)
+            if sl3:
+                sl3 = '\nprint({})'.format(sl3)
+                if data2:
+                    data3 = data2 + sl3
+                    sl_res = exec_py_code.exec_main(data3)
+                    if sl_res["code"] == 'Success':
+                        sl_output = sl_res.get('output', None)
+                        sl3_output = sl_output.split('\n')[-2].strip()
+                    else:
+                        sl_output = sl_res.get('output', None)
+                        sl3_output = sl_output
+                        # print(sl_output)
             sl4 = question.example4
-            sl4 = '\nprint({})'.format(sl4)
-            if data2:
-                data3 = data2 + sl4
-                sl_res = exec_py_code.exec_main(data3)
-                if sl_res["code"] == 'Success':
-                    sl_output = sl_res.get('output', None)
-                    sl4_output = sl_output.split('\n')[-2].strip()
-                else:
-                    sl_output = sl_res.get('output', None)
-                    sl4_output = sl_output
-                    # print(sl_output)
+            if sl4:
+                sl4 = '\nprint({})'.format(sl4)
+                if data2:
+                    data3 = data2 + sl4
+                    sl_res = exec_py_code.exec_main(data3)
+                    if sl_res["code"] == 'Success':
+                        sl_output = sl_res.get('output', None)
+                        sl4_output = sl_output.split('\n')[-2].strip()
+                    else:
+                        sl_output = sl_res.get('output', None)
+                        sl4_output = sl_output
+                        # print(sl_output)
             default1 = question.functionname
             return render(request, 'oj/bct_question_page.html',
                           {'question': question,
@@ -109,6 +122,8 @@ def submit_action(request, question_id):
                            'data': data,
                            'code_output': code_output,
                            'tags': tags})
+
+
 
 
 

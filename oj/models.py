@@ -80,7 +80,7 @@ class Question(models.Model):
     difficulty = models.CharField(max_length=40, choices=
                                 [('简单', '简单'),
                                  ('中等', '中等'),
-                                 ('困难', '困难')], default= 'simple', verbose_name='难度')
+                                 ('困难', '困难')], default='简单', verbose_name='难度')
     option1 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项一')
     option2 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项二')
     option3 = models.CharField(max_length=1000, null=True, blank=True, verbose_name='选项三')
