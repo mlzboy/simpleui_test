@@ -70,13 +70,26 @@
   flex-grow:1;
   }
 </style>
+<script src="./static/jquery.min.js"></script>
+<script type="text/javascript">
+console.log("zzz")
+  $(function(){
+      console.log("zzz")
+      $("#left_menu").click(function(){
+          console.log("zzzzz")
+          $(".left").toggle()
+      })
+
+  })
+  console.log("bbb")
+</script>
  </head>
  <body>
   <div class="main">
     <div class="left">111111111111111</div>
     <div class="middle">
       <div class="top">
-      111
+      <input type="button" id="left_menu" name="left_menu" value="题目" />
       </div>
       <div class="editor">
         <div class="z">3333333333</div>
