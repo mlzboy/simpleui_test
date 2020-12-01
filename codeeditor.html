@@ -76,7 +76,10 @@
   }
   .z{
     background-color:white;
-    width:400px;
+    width:500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .y{
     display:flex;
@@ -87,10 +90,12 @@
   }
   .s{
     background-color:blue;
-  height:500px;
+  /* height:900px; */
+  flex-grow:1;
   }
   .x{background-color:gray;
-  flex-grow:1;
+  /* flex-grow:1; */
+  height: 80px;
   }
   .question{color:white;height:35px;text-align: center;line-height: 35px;
   display: flex;
@@ -102,7 +107,7 @@
   .normal{color:orange}
   .hard{color:red}
   /* #drap-line {position: absolute;top: 0;right: 0;width: 4px;height: 100%;background-color: #999;cursor: e-resize;} */
-  #drap-line {width: 2px;height: 100%;background-color: #999;cursor: e-resize;}
+  #drap-line {width: 2px;height: 100%;background-color:black;cursor: e-resize;z-index: 100;}
 .over{background-color: gray;}
 .sub_menus{
   display: flex;
@@ -121,6 +126,25 @@ font-size:16px;margin:0px;padding:10px;}
 <script type="text/javascript">
 console.log("zzz")
   $(function(){
+
+$(".sub_menu").click(function(e,i){
+  console.log("eeeeeeeeeee,iiiiii",e,i)
+  console.log($(this).attr("n"))
+  let new_n = parseInt($(this).attr("n"))
+  let old_n = parseInt($("#lastn").val())
+  console.log(new_n,old_n)
+
+  $($(".content")[parseInt($(this).attr("n"))]).show()
+  if (new_n != old_n)
+  {
+    $($(".content")[old_n]).hide()
+    $($(".sub_menu")[old_n]).removeClass("over2")
+
+  }
+    $("#lastn").val(new_n.toString())
+    $($(".sub_menu")[new_n]).addClass("over2")
+
+})
 
   // $(".question").mouseover(function(){
   //   $(".question").css("background-color","gray");
@@ -141,7 +165,7 @@ $( this ).toggleClass( "over" );
       })
 
       var isDown = false; 
-var minwidth = 800; 
+var minwidth = 500; 
 var maxwidth = 1000; 
 $("#drap-line").mousedown(function() 
 { 
@@ -164,20 +188,20 @@ var _mx = event.clientX;
 //var _my = event.clientY; 
 var _poin = $("#drap-line").offset(); 
 var _w = _mx - _poin.left; 
-var _lw = $("#left").width(); 
-var _rw = $("#middle").width(); 
+var _lw = $("#z").width(); 
+var _rw = $("#y").width(); 
 if ((_lw + _w > minwidth && _w < 0) || (_lw + _w < maxwidth && _w > 0)) { 
-$("#left").width(_lw + _w); 
-$("#middle").width(_rw - _w); 
+$("#z").width(_lw + _w); 
+$("#y").width(_rw - _w); 
 } 
 else { 
 if (_w > 0) { 
-$("#left").width(maxwidth); 
-$("#middle").width(_rw - (maxwidth - _lw)); 
+$("#z").width(maxwidth); 
+$("#y").width(_rw - (maxwidth - _lw)); 
 } 
 else { 
-$("#left").width(minwidth); 
-$("#middle").width(_rw + (_lw - minwidth)); 
+$("#z").width(minwidth); 
+$("#y").width(_rw + (_lw - minwidth)); 
 } 
 } 
 } 
@@ -271,7 +295,7 @@ $("#middle").width(_rw + (_lw - minwidth));
           <div class="question">title</div>
         </div>
       </div>
-      <div id="drap-line"><span class="iconfont" style="color:gray;position: relative;top:80px;left:-10px;z-index: 100;">&#xe63b;</span></div>
+      <!-- <div id="drap-line"><span class="iconfont" style="color:gray;position: relative;top:80px;left:-10px;z-index: 100;">&#xe63b;</span></div> -->
       
     </div>
     <div class="middle">
@@ -279,38 +303,46 @@ $("#middle").width(_rw + (_lw - minwidth));
       <input type="button" id="left_menu" name="left_menu" value="题目" />
       </div>
       <div class="editor">
-        <div class="z">
-          <div class="sub_menus">
-            <span class="sub_menu over2">题目描述</span>
-            <span class="sub_menu">知识点</span>
-            <span class="sub_menu">视频讲解</span>
-            <span class="sub_menu">相关习题</span>
+        <div class="z" id="z">
+          <div>
+            <input type="hidden" name="lastn" id="lastn" value="0" />
+            <div class="sub_menus">
+              <span class="sub_menu over2" n="0">题目描述</span>
+              <span class="sub_menu" n="1">知识点</span>
+              <span class="sub_menu" n="2">视频讲解</span>
+              <span class="sub_menu" n="3">相关习题</span>
+            </div>
+            <!--4个里显示一个-->
+            <div class="content over3">
+              <div>title1</div>
+              <hr />
+              <div>content</div>
+            </div>
+            <div class="content">
+              <div>title2</div>
+              <hr />
+              <div>content</div>
+            </div>
+            <div class="content">
+              <div>title3</div>
+              <hr />
+              <div>content</div>
+            </div>
+            <div class="content">
+              <div>title4</div>
+              <hr />
+              <div>content</div>
+            </div>
           </div>
-          <!--4个里显示一个-->
-          <div class="content over3">
-            <div>title1</div>
-            <hr />
-            <div>content</div>
-          </div>
-          <div class="content">
-            <div>title2</div>
-            <hr />
-            <div>content</div>
-          </div>
-          <div class="content">
-            <div>title3</div>
-            <hr />
-            <div>content</div>
-          </div>
-          <div class="content">
-            <div>title4</div>
-            <hr />
-            <div>content</div>
-          </div>
+          <div id="drap-line">11</div>
+
         </div>
-        <div class="y">
-          <div class="s">1111</div>
-          <div class="x">222</div>
+        <div class="y" id="y">
+          <div class="s">code edit</div>
+          <div class="x">
+            <input type="button" name="submit1" value="提交测试" />
+            <input type="button" name="check_answer"" value="查看答案" />
+          </div>
         </div>
       </div>
     </div>
