@@ -8,6 +8,26 @@
   <meta name="Description" content="">
   <title>Document</title>
   <style type="text/css">
+@font-face {
+  font-family: 'iconfont';  /* project id 2241826 */
+  src: url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.eot');
+  src: url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.woff2') format('woff2'),
+  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.svg#iconfont') format('svg');
+}
+
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
   body{margin:0;padding:0;}
 	.top{
     height:50px;
@@ -23,8 +43,11 @@
     /* background-color: gray; */
   }
   .left{
-    width:200px;
+    width:800px;
     background-color:yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .middle{
     width:100%;
@@ -52,7 +75,7 @@
 
   }
   .z{
-    background-color:orange;
+    background-color:white;
     width:400px;
   }
   .y{
@@ -69,16 +92,151 @@
   .x{background-color:gray;
   flex-grow:1;
   }
+  .question{color:white;height:35px;text-align: center;line-height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin:0 20px;
+  }
+  .easy{color:lightgreen}
+  .normal{color:orange}
+  .hard{color:red}
+  /* #drap-line {position: absolute;top: 0;right: 0;width: 4px;height: 100%;background-color: #999;cursor: e-resize;} */
+  #drap-line {width: 2px;height: 100%;background-color: #999;cursor: e-resize;}
+.over{background-color: gray;}
+.sub_menus{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+}
+.sub_menu{width:100px;height:25px;line-height: 25px;text-align: center;
+background-color: lightgray;
+/* border:gray 1px solid; */
+font-size:16px;margin:0px;padding:10px;}
+.over2{background-color: white;}
+.content{display: none;}
+.over3{display: block;}
 </style>
 <script src="./static/jquery.min.js"></script>
 <script type="text/javascript">
 console.log("zzz")
   $(function(){
+
+  // $(".question").mouseover(function(){
+  //   $(".question").css("background-color","gray");
+  // });
+  // $(".question").mouseout(function(){
+  //   $(".question").css("background-color","#262626");
+  // });
+
+  $( ".question" ).bind( "mouseenter mouseleave", function( event ) {
+$( this ).toggleClass( "over" );
+});
+
+
       console.log("zzz")
       $("#left_menu").click(function(){
           console.log("zzzzz")
           $(".left").toggle()
       })
+
+      var isDown = false; 
+var minwidth = 800; 
+var maxwidth = 1000; 
+$("#drap-line").mousedown(function() 
+{ 
+// this.setCapture(); 
+isDown = true; 
+// $("body").css("cursor", "e-resize"); 
+}); 
+$("body").mouseup(function () 
+{ 
+// this.releaseCapture(); 
+isDown = false; 
+$("body").css("cursor", "default"); 
+}); 
+$("body").mousemove(function (event) 
+{ 
+if (isDown) { 
+$("body").css("cursor", "e-resize"); 
+
+var _mx = event.clientX; 
+//var _my = event.clientY; 
+var _poin = $("#drap-line").offset(); 
+var _w = _mx - _poin.left; 
+var _lw = $("#left").width(); 
+var _rw = $("#middle").width(); 
+if ((_lw + _w > minwidth && _w < 0) || (_lw + _w < maxwidth && _w > 0)) { 
+$("#left").width(_lw + _w); 
+$("#middle").width(_rw - _w); 
+} 
+else { 
+if (_w > 0) { 
+$("#left").width(maxwidth); 
+$("#middle").width(_rw - (maxwidth - _lw)); 
+} 
+else { 
+$("#left").width(minwidth); 
+$("#middle").width(_rw + (_lw - minwidth)); 
+} 
+} 
+} 
+}); 
+
+    //   		//设置最大/最小宽度
+		// var max_width = 400,
+		// 	min_width = 200;
+ 
+
+    
+
+
+		// //获取dom
+		// var	drapLine = $('#drap-line'),
+		// 	left = $('#left'),
+		// 	right = $('#middle');
+ 
+		// //记录鼠标相对left盒子x轴位置
+		// var mouse_x = 0;
+ 
+		// //鼠标移动事件
+		// function mouseMove(e) {
+		// 	var e = e || window.event;
+		// 	var left_width = e.clientX - mouse_x;
+		// 	left_width = left_width < min_width ? min_width : left_width;
+		// 	left_width = left_width > max_width ? max_width : left_width;
+		// 	// left.style.width = left_width + 'px';
+    //   // right.style.left = left_width + 'px';
+    //   left.css({"width":left_width+"px"});
+		// }
+		// //终止事件
+		// function mouseUp() {
+		// 	document.onmousemove = null;
+		// 	document.onmouseup = null;
+		// 	//localStorage设置
+		// 	localStorage.setItem('sliderWidth', left.style.width)
+    // }
+    
+
+    // 			//localStorage读取
+		// 	var history_width = localStorage.getItem('sliderWidth');
+		// 	if (history_width) {
+
+    //     left.css({"width":history_width+"px"});
+
+		// 		// left.style.width = history_width;
+		// 		// right.style.left = history_width;
+		// 	}
+		// 	//绑定鼠标按下事件
+		// 	drapLine.onmousedown = function (e) {
+		// 		var e = e || window.event;
+		// 		//阻止默认事件
+		// 		e.preventDefault();
+		// 		mouse_x = e.clientX - left.offsetWidth;
+		// 		document.onmousemove = mouseMove;
+		// 		document.onmouseup = mouseUp;
+		// 	}
+
 
   })
   console.log("bbb")
@@ -86,21 +244,78 @@ console.log("zzz")
  </head>
  <body>
   <div class="main">
-    <div class="left">111111111111111</div>
+    <div class="left" id="left">
+      <div id="menu" style="background-color: #262626;width:100%;">
+        <div class="inner_menu" style="text-align: center;margin:10px;">
+          <input type="button" name="pre" value="上一页" />
+          <input type="button" name="next" value="下一页" />
+        </div>
+        <div class="questions">
+          <div class="question">
+            <span>title</span>
+            <span>tags</span>
+            <span class="easy">easy</span>
+          </div>
+          <div class="question">
+            <span>title</span>
+            <span>tags</span>
+            <span class="normal">normal</span>
+          </div>
+          <div class="question">
+            <span>title</span>
+            <span>tags</span>
+            <span class="hard">hard</span>
+          </div>
+          <div class="question">title</div>
+          <div class="question">title</div>
+          <div class="question">title</div>
+        </div>
+      </div>
+      <div id="drap-line"><span class="iconfont" style="color:gray;position: relative;top:80px;left:-10px;z-index: 100;">&#xe63b;</span></div>
+      
+    </div>
     <div class="middle">
       <div class="top">
       <input type="button" id="left_menu" name="left_menu" value="题目" />
       </div>
       <div class="editor">
-        <div class="z">3333333333</div>
+        <div class="z">
+          <div class="sub_menus">
+            <span class="sub_menu over2">题目描述</span>
+            <span class="sub_menu">知识点</span>
+            <span class="sub_menu">视频讲解</span>
+            <span class="sub_menu">相关习题</span>
+          </div>
+          <!--4个里显示一个-->
+          <div class="content over3">
+            <div>title1</div>
+            <hr />
+            <div>content</div>
+          </div>
+          <div class="content">
+            <div>title2</div>
+            <hr />
+            <div>content</div>
+          </div>
+          <div class="content">
+            <div>title3</div>
+            <hr />
+            <div>content</div>
+          </div>
+          <div class="content">
+            <div>title4</div>
+            <hr />
+            <div>content</div>
+          </div>
+        </div>
         <div class="y">
           <div class="s">1111</div>
           <div class="x">222</div>
         </div>
       </div>
     </div>
-    <div class="right1">2222222222222</div>
-    <div class="right2">2222222222222</div>
+    <!-- <div class="right1">2222222222222</div>
+    <div class="right2">2222222222222</div> -->
   </div>
 </body>
 </html>
