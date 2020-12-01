@@ -43,7 +43,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_display = ("name","teacher")
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ("question", "id", 'difficulty',"author","display","show_front_link")
+    list_display = ("question", "title", "id", 'difficulty',"author","display","show_front_link")
     list_filter = ['difficulty', 'author']
     search_fields = ['question']
 
