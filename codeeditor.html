@@ -10,12 +10,12 @@
   <style type="text/css">
 @font-face {
   font-family: 'iconfont';  /* project id 2241826 */
-  src: url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.eot');
-  src: url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.eot?#iefix') format('embedded-opentype'),
-  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.woff2') format('woff2'),
-  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.woff') format('woff'),
-  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.ttf') format('truetype'),
-  url('https://at.alicdn.com/t/font_2241826_n1ouzc9foe.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.eot');
+  src: url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.woff') format('woff'),
+  url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_2241826_x6mn5502j8e.svg#iconfont') format('svg');
 }
 
 
@@ -43,7 +43,7 @@
     /* background-color: gray; */
   }
   .left{
-    width:800px;
+    /* width:800px; */
     background-color:yellow;
     display: flex;
     flex-direction: row;
@@ -107,7 +107,7 @@
   .normal{color:orange}
   .hard{color:red}
   /* #drap-line {position: absolute;top: 0;right: 0;width: 4px;height: 100%;background-color: #999;cursor: e-resize;} */
-  #drap-line {width: 2px;height: 100%;background-color:black;cursor: e-resize;z-index: 100;}
+  #drap-line {width: 2px;height: 100%;background-color:gray;cursor: e-resize;z-index: 100;}
 .over{background-color: gray;}
 .sub_menus{
   display: flex;
@@ -161,7 +161,8 @@ $( this ).toggleClass( "over" );
       console.log("zzz")
       $("#left_menu").click(function(){
           console.log("zzzzz")
-          $(".left").toggle()
+          // $("#left").css("width","800px")
+          $("#left").toggle()
       })
 
       var isDown = false; 
@@ -269,7 +270,7 @@ $("#y").width(_rw + (_lw - minwidth));
  <body>
   <div class="main">
     <div class="left" id="left">
-      <div id="menu" style="background-color: #262626;width:100%;">
+      <div id="menu" style="background-color: #262626;width:600px;">
         <div class="inner_menu" style="text-align: center;margin:10px;">
           <input type="button" name="pre" value="上一页" />
           <input type="button" name="next" value="下一页" />
