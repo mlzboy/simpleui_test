@@ -7,16 +7,23 @@ import re
 def question_all(request):
     questions = models.Question.objects.all()
     difficulty = request.GET.get('d', None)
+    id = request.GET.get('id', None)
+    question = None
+    if id:
+        for qu in questions:
+            if str(qu.id) == str(id):
+                question = qu
+                default1 = question.functionname
+                break
     if difficulty:
         # print(difficulty)
         dq = []
         for question in questions:
             if question.difficulty == difficulty:
                 dq.append(question)
-        return render(request, 'oj/question_all.html',
-                      {'questions': dq})
-    return render(request, 'oj/question_all.html',
-                  {'questions': questions})
+        return render(request, 'oj/codeeditor.html', locals())
+
+    return render(request, 'oj/codeeditor.html', locals())
 
 
 def question_page(request, question_id):
@@ -35,6 +42,7 @@ def question_page(request, question_id):
 
 
 def submit_action(request, question_id):
+    questions = models.Question.objects.all()
     question = models.Question.objects.get(id=question_id)
     tags = question.tags.all()
     if request.method == 'POST':
@@ -103,25 +111,15 @@ def submit_action(request, question_id):
                         sl4_output = sl_output
                         # print(sl_output)
             default1 = question.functionname
-            return render(request, 'oj/bct_question_page.html',
-                          {'question': question,
-                           'data': data,
-                           'code_output': code_output,
-                           'sl1_output': sl1_output,
-                           'sl2_output': sl2_output,
-                           'sl3_output': sl3_output,
-                           'sl4_output': sl4_output,
-                           'default1': default1,
-                           'tags': tags
-                           })
-        else:  # 选择题的情况
-            option = request.POST.getlist('option', '')
-            print(option)
-            return render(request, 'oj/xzt_question_page.html',
-                          {'question': question,
-                           'data': data,
-                           'code_output': code_output,
-                           'tags': tags})
+            return render(request, 'oj/codeeditor.html', locals())
+        # else:  # 选择题的情况
+        #     option = request.POST.getlist('option', '')
+        #     print(option)
+        #     return render(request, 'oj/xzt_question_page.html',
+        #                   {'question': question,
+        #                    'data': data,
+        #                    'code_output': code_output,
+        #                    'tags': tags})
 
 
 
