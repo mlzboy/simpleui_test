@@ -8,18 +8,15 @@ from login import models as login_models
 def index(request):
     """登录页面"""
     # 验证码生成
-    next = request.GET.get('next', None)
     # hashkey = CaptchaStore.generate_key()
     # imgage_url = captcha_image_url(hashkey)
-    return render(request, 'login/index.html', locals())
+    return render(request, 'login/index.html')
 
 
 def login_action(request):
-    questions = oj_models.Question.objects.all()
     if request.session.get('is_login', None):
         # 不允许重复登录
-        return render(request, 'oj/question_all.html',
-                      {'questions': questions})
+        return HttpResponseRedirect('/questions/all')
     # 验证码生成
     # hashkey = CaptchaStore.generate_key()
     # imgage_url = captcha_image_url(hashkey)
@@ -40,15 +37,7 @@ def login_action(request):
                 if user.password == password:
                     request.session['is_login'] = True
                     request.session['user_id'] = user.student_number
-                    next = request.POST.get('next', None)
-                    if next == 'None':
-                        return render(request, 'oj/question_all.html',
-                                      {'questions': questions})
-                    elif next:
-                        return HttpResponseRedirect(next)
-                    else:
-                        return render(request, 'oj/question_all.html',
-                                      {'questions': questions})
+                    return HttpResponseRedirect('/questions/all')
                     # 将用户输入的验证码小写后与数据库查询的response值对比：
                     # vcode = vcode.lower()
                     # if vcode == captcha.response:
@@ -73,7 +62,6 @@ def login_action(request):
 
 
 def register_page(request):
-    next = request.GET.get('next', None)
     return render(request, 'login/register.html', locals())
 
 
@@ -96,22 +84,14 @@ def register_action(request):
                         student_number=username, password=password)
                     # hashkey = CaptchaStore.generate_key()
                     # imgage_url = captcha_image_url(hashkey)
-                    next = request.POST.get('next', None)
                     return render(request, 'login/index.html', locals())
     return render(request, 'login/register.html', locals())
 
 
 def logout(request):
     """退出登录"""
-    questions = oj_models.Question.objects.all()
-    if not request.session.get('is_login', None):
-        # 如果没有登录
-        return render(request, 'oj/question_all.html', locals())
-    request.session.flush()   # 删除当前的会话数据和会话cookie。
-    next = request.GET.get('next', None)
-    if next:
-        return HttpResponseRedirect(next)
-    return render(request, 'oj/question_all.html', locals())
+    request.session.flush()  # 删除当前的会话数据和会话cookie。
+    return HttpResponseRedirect('/questions/all')
 
 
 
