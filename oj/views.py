@@ -6,6 +6,7 @@ import re
 
 def question_all(request):
     questions = models.Question.objects.all()
+    default1 = ''
     difficulty = request.GET.get('d', None)
     id = request.GET.get('id', None)
     question = None

@@ -371,15 +371,7 @@ $("#y").width(_rw + (_lw - minwidth));
                   <br />
                   <textarea name="shuchu" id="shuchu" autocomplete="off">{{code_output|default:"运行结果"}}</textarea>
                   <br />
-                  <textarea id="daan" name="daan" rows="15" cols="50" readonly style="display:    var editor3 = CodeMirror.fromTextArea(document.getElementById("daan"), {
-        lineNumbers: true,  //显示行号
-        theme: "dracula",  //设置主题
-        indentUnit: 4,  //缩进单位，值为空格数，默认为2
-        readOnly: "nocursor",  //readOnly: boolean|string 编辑器是否只读。
-            //如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。
-        lineWrapping: true
-            //在长行时文字是换行(wrap)还是滚动(scroll)，默认为滚动(scroll)。
-    });">{%if question%}{{question.right_answer}}{%endif%}</textarea>
+                  <textarea id="daan" name="daan" rows="15" cols="50" readonly style="display:none">{%if question%}{{question.right_answer}}{%endif%}</textarea>
                   <table width="60%" border="0" cellspacing="0" cellpadding="0" style="margin:0 15px 0 15px">
                     <tr>
                       <td width="50%">示例1</td>
