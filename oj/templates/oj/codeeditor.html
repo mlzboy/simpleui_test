@@ -86,7 +86,7 @@
     display:flex;
     flex-direction: column;
     justify-content:space-between;
-    background-color:pink;
+    background-color:white;
     flex-grow:1
   }
   .s{
@@ -292,25 +292,53 @@ $("#y").width(_rw + (_lw - minwidth));
     <div class="left" id="left">
       <div id="menu" style="background-color: #262626;width:600px;">
         <div class="inner_menu" style="text-align: center;margin:10px;">
-          <input type="button" name="pre" value="上一页" />
-          <input type="button" name="next" value="下一页" />
+        {% if page_list.has_previous %}
+            <a href="/questions/all/?page={{page_list.previous_page_number}}&id={{id}}" >上一页</a>
+        {% else %}
+            <a href="#">上一页</a>
+        {% endif %}
+        {% if page_list.has_next %}
+            <a href="/questions/all/?page={{page_list.next_page_number}}&id={{id}}">下一页</a>
+        {% else %}
+            <a href="#">下一页</a>
+        {% endif %}
         </div>
         <div class="questions">
-          {%for q in questions%}
-          {% if q.display %}
-          <div class="question">
-            <span>
-              <a href="/questions/all/?id={{q.id}}">
-                {{q.id}}.{{q.title}}
-              </a>
-            </span>
-            <span>{% for tag in q.tags.all%}{{tag}}{%endfor%}</span>
-            <span class="easy">
-              <a href="">
-                {{q.difficulty}}</a></span>
-          </div>
-          {% endif %}
-          {%endfor%}
+            <table width="100%">
+                {%for q in page_list%}
+                {% if q.display %}
+                    <tr>
+                        <td width="60%" ><a href="/questions/all/?page={{current_pagnum}}&id={{q.id}}" class="question">
+                            {{q.id}}.&nbsp&nbsp{{q.title|slice:":20"}}</a></td>
+                        <td width="20%" style="color:white">{% for tag in q.tags.all%}{{tag}},{%endfor%}</td>
+                        <td width="20%">
+                            {% if q.difficulty == '简单' %}
+                            <a href="" class="easy">{{q.difficulty}}</a>
+                            {% elif q.difficulty == '中等' %}
+                            <a href="" class="normal">{{q.difficulty}}</a>
+                            {% else %}
+                            <a href="" class="hard">{{q.difficulty}}</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {%endfor%}
+            </table>
+<!--          {%for q in page_list%}-->
+<!--          {% if q.display %}-->
+<!--          <div class="question">-->
+<!--            <span>-->
+<!--              <a href="/questions/all/?page={{current_pagnum}}&id={{q.id}}">-->
+<!--                {{q.id}}.{{q.title|slice:":10"}}-->
+<!--              </a>-->
+<!--            </span>-->
+<!--            <span>{% for tag in q.tags.all%}{{tag}}{%endfor%}</span>-->
+<!--            <span class="easy">-->
+<!--              <a href="">-->
+<!--                {{q.difficulty}}</a></span>-->
+<!--          </div>-->
+<!--          {% endif %}-->
+<!--          {%endfor%}-->
         </div>
       </div>
 
@@ -370,7 +398,8 @@ $("#y").width(_rw + (_lw - minwidth));
 
         </div>
         <div class="y" id="y">
-          <form name="form1" method="post" action="/questions/{{question.id}}/submit_action/">
+<!--          <form name="form1" method="post" action="/questions/{{question.id}}/submit_action/?page={{current_pagnum}}&id={{id}}">-->
+          <form name="form1" method="post" action="/questions/all/?page={{current_pagnum}}&id={{id}}&submit_action=1">
             <div class="s">
                 {% csrf_token %}
                 <div class="page-body">
@@ -379,62 +408,62 @@ $("#y").width(_rw + (_lw - minwidth));
                   <textarea name="shuchu" id="shuchu" autocomplete="off">{{code_output|default:"运行结果"}}</textarea>
                   <br />
                   <textarea id="daan" name="daan" rows="15" cols="50" readonly style="display:none">{%if question%}{{question.right_answer}}{%endif%}</textarea>
-                  <table width="60%" border="0" cellspacing="0" cellpadding="0" style="margin:0 15px 0 15px">
+                  <table width="90%" border="0" cellspacing="0" cellpadding="0" style="margin:0 15px 0 15px">
                     <tr>
-                      <td width="50%">示例1</td>
-                      <td width="50%">运行结果</td>
+                      <td width="80%">示例1</td>
+                      <td>运行结果</td>
                     </tr>
                     <tr>
-                      <td width="50%"><textarea name="sl1" rows="2" cols="15" readonly>{{question.example1}}</textarea>&nbsp;</td>
-                      <td width="50%">
+                      <td><input name="sl1" value="{{question.example1}}" readonly size="30"></input>&nbsp;</td>
+                      <td>
                           {% if sl1_output == 'True' %}
-                          <font size="6" color="green">{{sl1_output}}</font>
+                          <font color="green">{{sl1_output}}</font>
                           {% elif sl1_output == 'False' %}
-                          <font size="6" color="red">{{sl1_output}}</font>
+                          <font color="red">{{sl1_output}}</font>
                           {% else %}
                           <font color="red">{{sl1_output}}</font>
                           {% endif %}
                       </td>
                     </tr>
                     <tr>
-                      <td width="50%">示例2</td>
-                      <td width="50%"></td>
+                      <td>示例2</td>
+                      <td></td>
                     </tr>
                     <tr>
-                      <td width="50%"><textarea name="sl2" rows="2" cols="15" readonly>{{question.example2}}</textarea>&nbsp;</td>
-                      <td width="50%">
+                      <td><input name="sl2" value="{{question.example2}}" readonly size="30"></input>&nbsp;</td>
+                      <td>
                           {% if sl2_output == 'True'%}
-                          <font size="6" color="green">{{sl2_output}}</font>
+                          <font color="green">{{sl2_output}}</font>
                           {% else %}
-                          <font size="6" color="red">{{sl2_output}}</font>
+                          <font color="red">{{sl2_output}}</font>
                           {% endif %}
                       </td>
                     </tr>
                     <tr>
-                      <td width="50%">示例3</td>
-                      <td width="50%"></td>
+                      <td>示例3</td>
+                      <td></td>
                     </tr>
                     <tr>
-                      <td width="50%"><textarea name="sl3" rows="2" cols="15" readonly>{{question.example3}}</textarea>&nbsp;</td>
-                      <td width="50%">
+                      <td><input name="sl3" value="{{question.example3}}" readonly size="30"></input>&nbsp;</td>
+                      <td>
                           {% if sl3_output == 'True'%}
-                          <font size="6" color="green">{{sl3_output}}</font>
+                          <font color="green">{{sl3_output}}</font>
                           {% else %}
-                          <font size="6" color="red">{{sl3_output}}</font>
+                          <font color="red">{{sl3_output}}</font>
                           {% endif %}
                       </td>
                     </tr>
                     <tr>
-                      <td width="50%">示例4</td>
-                      <td width="50%"></td>
+                      <td>示例4</td>
+                      <td></td>
                     </tr>
                     <tr>
-                      <td width="50%"><textarea name="sl4" rows="2" cols="15" readonly>{{question.example4}}</textarea>&nbsp;</td>
-                      <td width="50%">
+                      <td ><input name="sl4" value="{{question.example4}}" readonly size="30"></input>&nbsp;</td>
+                      <td >
                           {% if sl4_output == 'True'%}
-                              <font size="6" color="green">{{sl4_output}}</font>
+                              <font color="green">{{sl4_output}}</font>
                           {% else %}
-                              <font size="6" color="red">{{sl4_output}}</font>
+                              <font color="red">{{sl4_output}}</font>
                           {% endif %}
                       </td>
                     </tr>
@@ -481,15 +510,6 @@ $("#y").width(_rw + (_lw - minwidth));
         theme: "dracula",  //设置主题
         indentUnit: 4,  //缩进单位，值为空格数，默认为2
     });
-    var editor2 = CodeMirror.fromTextArea(document.getElementById("shuchu"), {
-        lineNumbers: true,  //显示行号
-        theme: "dracula",  //设置主题
-        indentUnit: 4,  //缩进单位，值为空格数，默认为2
-        readOnly: "nocursor",  //readOnly: boolean|string 编辑器是否只读。
-        //如果设置为预设的值 “nocursor”，那么除了设置只读外，编辑区域还不能获得焦点。
-        lineWrapping: true
-    });
-
 
 $(function(){
   $("#zt").click(function(){
